@@ -85,11 +85,8 @@ USERROUTES.post('/login', loginVerification, (req,res)=>{
                 },process.env.SECTOKEN,
                 {expiresIn:process.env.ACCESSTIME})
 
-                const RefreshToken = jwt.sign({
-                    id:dataByEmail.id,
-                    username:dataByEmail.username,
-                    isprofil:dataByEmail.isProfil,
-                    roleName:dataByEmail.roleName},
+                const RefreshToken = jwt.sign(
+                    {id:dataByEmail.id},
                     process.env.SECTOKEN,
                     {expiresIn:process.env.REFRESHTIME})
 
