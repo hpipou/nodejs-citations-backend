@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Profil.belongsTo(models.User)
+      Profil.belongsTo(models.User,{foreignKey:{name:'idUser'}})
       Profil.hasMany(models.Citation,{onDelete:"cascade"})
     }
   }

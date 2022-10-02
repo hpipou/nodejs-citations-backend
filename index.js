@@ -13,7 +13,8 @@ app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 
 // DEPLOY ROUTES
-app.use(userRoute)
+app.use('/users',userRoute)
+app.use('/profils',profilRoute)
 
 
 // launch server
