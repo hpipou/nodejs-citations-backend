@@ -8,11 +8,12 @@ const checkProfilInfo = require("../middleware/checkProfil")
 const chekID = require("../middleware/checkID")
 const multer = require("../middleware/multer")
 const multerErrorHandler = require("../middleware/multerErrorCapture")
+const auth = require("../middleware/authentication")
 
 //////////////////////////////////
 // add new profil
 //////////////////////////////////
-PROFILROUTES.post('/', checkProfilInfo , (req,res)=>{
+PROFILROUTES.post('/', auth , checkProfilInfo , (req,res)=>{
 
     const token = req.headers.authorization.split(' ')[1]
     const tokenDecoded = jwt.decode(token)
@@ -63,7 +64,7 @@ PROFILROUTES.post('/', checkProfilInfo , (req,res)=>{
 //////////////////////////////////
 // edit profil
 //////////////////////////////////
-PROFILROUTES.put('/', checkProfilInfo , (req,res)=>{
+PROFILROUTES.put('/', auth , checkProfilInfo , (req,res)=>{
 
     const token = req.headers.authorization.split(' ')[1]
     const tokenDecoded = jwt.decode(token)
@@ -144,7 +145,7 @@ PROFILROUTES.get('/:id', chekID , (req,res)=>{
 //////////////////////////////////
 // upload image profil
 //////////////////////////////////
-PROFILROUTES.post('/picture', multer.single('file') , multerErrorHandler, (req,res)=>{
+PROFILROUTES.post('/picture', auth, multer.single('file') , multerErrorHandler, (req,res)=>{
 
     const token = req.headers.authorization.split(' ')[1]
     const tokenDecoded = jwt.decode(token)

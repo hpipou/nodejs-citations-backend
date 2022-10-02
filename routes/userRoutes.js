@@ -11,6 +11,7 @@ const registerVerification = require("../middleware/registerUserVerification")
 const loginVerification = require("../middleware/loginUserVerification")
 const checkID = require("../middleware/checkID")
 const checkPASS = require("../middleware/checkNewPassword")
+const auth = require("../middleware/authentication")
 
 //////////////////////////////////////////////////
 // register
@@ -105,7 +106,7 @@ USERROUTES.post('/login', loginVerification, (req,res)=>{
 //////////////////////////////////////////////////
 // change password
 //////////////////////////////////////////////////
-USERROUTES.put('/', checkPASS, (req,res)=>{
+USERROUTES.put('/', auth , checkPASS, (req,res)=>{
 
     const email = req.body.email
     const password = req.body.password
@@ -166,7 +167,7 @@ USERROUTES.get('/:id', checkID, (req,res)=>{
 //////////////////////////////////////////////////
 // delete user
 //////////////////////////////////////////////////
-USERROUTES.delete('/:id', checkID , (req,res)=>{
+USERROUTES.delete('/:id', auth , checkID , (req,res)=>{
 
     const userID = req.params.id
 

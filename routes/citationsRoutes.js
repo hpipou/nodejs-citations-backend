@@ -6,11 +6,12 @@ const jwt = require("jsonwebtoken")
 // deploy middleware
 const checkCitation = require("../middleware/checkCitation")
 const checkID = require("../middleware/checkID")
+const auth = require("../middleware/authentication")
 
 ///////////////////////////////////////////////
 // add new citation
 ///////////////////////////////////////////////
-CITATIONROUTES.post('/', checkCitation , (req, res)=>{
+CITATIONROUTES.post('/', auth, checkCitation , (req, res)=>{
 
     const token = req.headers.authorization.split(' ')[1]
     const tokenDecoded = jwt.decode(token)
@@ -44,7 +45,7 @@ CITATIONROUTES.post('/', checkCitation , (req, res)=>{
 ///////////////////////////////////////////////
 // edit citations
 ///////////////////////////////////////////////
-CITATIONROUTES.put('/:id', checkID , checkCitation , (req, res)=>{
+CITATIONROUTES.put('/:id', auth , checkID , checkCitation , (req, res)=>{
 
     const token = req.headers.authorization.split(' ')[1]
     const tokenDecoded = jwt.decode(token)
@@ -127,7 +128,7 @@ CITATIONROUTES.get('/:id', checkID , (req, res)=>{
 ///////////////////////////////////////////////
 // delete citation
 ///////////////////////////////////////////////
-CITATIONROUTES.delete('/:id', checkID , (req, res)=>{
+CITATIONROUTES.delete('/:id', auth , checkID , (req, res)=>{
 
     const token = req.headers.authorization.split(' ')[1]
     const tokenDecoded = jwt.decode(token)
