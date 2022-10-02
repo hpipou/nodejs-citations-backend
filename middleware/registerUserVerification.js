@@ -25,7 +25,7 @@ const userVerif = (req,res,next)=>{
     if(!validator.isLength(password,{min:5, max:30})){return res.status(403).json("PASSWORD MIN:5 MAX:30")}
 
     if(!validator.matches(username,'^[a-zA-Z]*$')){return res.status(403).json("USERNAME CHARACTER ONLY")}
-    if(!validator.matches(username,'^[a-zA-Z0-9]*$')){return res.status(403).json("USERNAME CHARACTER ONLY")}
+    if(!validator.matches(password,'^[a-zA-Z0-9]*$')){return res.status(403).json("PASSWORD CHARACTER & NUMBER ONLY")}
 
     next()
 }
