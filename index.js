@@ -15,7 +15,7 @@ app.use(express.urlencoded({extended:true}))
 // DEPLOY ROUTES
 app.use('/users',userRoute)
 app.use('/profils',profilRoute)
-
+app.use('/citations', citationRoute)
 
 // launch server
 app.listen(3000, ()=>console.log("SERVER START"))

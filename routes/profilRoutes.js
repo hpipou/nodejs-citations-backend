@@ -171,6 +171,4 @@ PROFILROUTES.post('/picture', multer.single('file') , multerErrorHandler, (req,r
     }
 })
 
-
-
 module.exports=PROFILROUTES
