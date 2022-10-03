@@ -11,7 +11,6 @@
   "license": "ISC",
   "dependencies": {
     "async": "^3.2.4",
-    "basic-ftp": "^5.0.2",
     "bcrypt": "^5.0.1",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
@@ -20,7 +19,6 @@
     "jsonwebtoken": "^8.5.1",
     "multer": "^1.4.5-lts.1",
     "mysql2": "^2.3.3",
-    "node-scp": "0.0.21",
     "sequelize": "^6.23.2",
     "validator": "^13.7.0"
   }

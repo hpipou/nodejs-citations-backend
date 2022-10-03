@@ -2,6 +2,8 @@ const express = require("express")
 const PROFILROUTES = express.Router()
 const jwt = require("jsonwebtoken")
 const models = require("../models")
+const Client = require('ftp');
+require("dotenv").config()
 
 // declare middleware
 const checkProfilInfo = require("../middleware/checkProfil")
@@ -166,8 +168,27 @@ PROFILROUTES.post('/picture', auth, multer.single('file') , multerErrorHandler, 
 
     // edit image profil link
     function imgUpdate(){
-        models.Profil.update({imgURL:imgURL},{where:{idUser:userID}})
-        .then(()=>{return res.status(200).json("IMAGE UPDATED")})
+        models.Profil.update({imgURL:process.env.URLREMOTEDIRECTORY+imgURL},{where:{idUser:userID}})
+        .then(()=>{
+            
+            const accountFTP = new Client();
+            accountFTP.connect({
+                host : process.env.HOSTFTP,
+                user : process.env.USERFTP,
+                password : process.env.PASSFTP,
+                port : 21,
+                secure : false
+            });
+
+            accountFTP.on('ready', function() {
+                accountFTP.put('./images/'+ imgURL, imgURL, function(err) {
+                if (err) throw err;
+                accountFTP.end();
+                });
+            });
+            
+            return res.status(200).json("IMAGE UPDATED")
+        })
         .catch((error)=>{return res.status(500).json(error)})
     }
 })
